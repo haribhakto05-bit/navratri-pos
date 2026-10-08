@@ -50,7 +50,7 @@ main{flex:1;min-height:0;overflow:hidden}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .mut{color:var(--mute);font-size:12px}
-input{font:inherit;padding:9px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);min-width:0}
+input,select{font:inherit;padding:9px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--ink);min-width:0}
 .btn{border:0;border-radius:9px;padding:9px 12px;background:var(--pri);color:#fff;font-weight:700;font:inherit;font-weight:700}
 .btn.g{background:var(--pri2);color:var(--pri)}
 .btn.d{background:#8b2e2e;color:#fff}
@@ -127,11 +127,13 @@ function saleV(){
   l+='<div class="line"><div class="n">'+esc(it.name)+'</div><div class="r"><div class="q"><button onclick="chg(\''+id+'\',-1)">−</button><b>'+cart[id]+'</b><button onclick="chg(\''+id+'\',1)">+</button></div><b>₹'+a+'</b></div></div>'});
  return '<div class="pos"><div class="left">'+h+'</div><div class="right"><div class="mut">Current order</div><div class="cart">'+(l||'<div class="empty">Tap items to add</div>')+'</div><div class="total"><span>Total</span><span>₹'+tot+'</span></div><div class="pay"><button class="cash" '+(tot?'':'disabled')+' onclick="pay(\'Cash\')">Cash</button><button class="gpay" '+(tot?'':'disabled')+' onclick="pay(\'G-Pay\')">G-Pay</button></div><button class="clr" onclick="cart={};render()">Clear order</button></div></div>';
 }
+function isDrink(it){return it.drink!==undefined?it.drink:/beverage|drink/i.test(it.cat||'')}
+function lineDrink(x){if(x.drink!==undefined)return x.drink;var it=items.find(function(i){return i.name==x.name});return it?isDrink(it):/beverage|drink|water|bottle/i.test(x.name)}
 function add(id){cart[id]=(cart[id]||0)+1;render()}
 function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];render()}
 function pay(mode){
  var lines=[],tot=0;
- Object.keys(cart).forEach(function(id){var it=items.find(function(x){return x.id==id});if(it){lines.push({name:it.name,price:it.price,qty:cart[id]});tot+=it.price*cart[id]}});
+ Object.keys(cart).forEach(function(id){var it=items.find(function(x){return x.id==id});if(it){lines.push({name:it.name,price:it.price,qty:cart[id],drink:isDrink(it)});tot+=it.price*cart[id]}});
  if(!lines.length)return;
  var now=new Date();
  sales.push({id:now.getTime(),ts:now.getTime(),date:dstr(now),items:lines,total:tot,mode:mode});
@@ -153,24 +155,24 @@ function histV(){
 function del(id){if(armed==id){sales=sales.filter(function(s){return s.id!=id});save(KS,sales);armed=null}else armed=id;render()}
 /* REPORT */
 function repV(){
- var list=sales.filter(function(s){return s.date==viewDate}),cash=0,onl=0,dishes=0,by={};
- list.forEach(function(s){if(s.mode=='Cash')cash+=s.total;else onl+=s.total;s.items.forEach(function(x){dishes+=x.qty;by[x.name]=by[x.name]||{q:0,r:0};by[x.name].q+=x.qty;by[x.name].r+=x.qty*x.price})});
- var h=dateBar()+'<div class="stats"><div class="stat big"><div class="mut">Total revenue · '+nice(viewDate)+'</div><div class="v">₹'+(cash+onl)+'</div></div>'+
+ var list=sales.filter(function(s){return s.date==viewDate}),cash=0,onl=0,dishes=0,drinks=0,dR=0,bR=0,by={};
+ list.forEach(function(s){if(s.mode=='Cash')cash+=s.total;else onl+=s.total;s.items.forEach(function(x){var d=lineDrink(x);if(d){drinks+=x.qty;bR+=x.qty*x.price}else{dishes+=x.qty;dR+=x.qty*x.price}by[x.name]=by[x.name]||{q:0,r:0,d:d};by[x.name].q+=x.qty;by[x.name].r+=x.qty*x.price})});
+ var h=dateBar()+'<div class="stats"><div class="stat big"><div class="mut">Total revenue · '+nice(viewDate)+' · '+list.length+' orders</div><div class="v">₹'+(cash+onl)+'</div></div>'+
  '<div class="stat"><div class="mut">Cash</div><div class="v">₹'+cash+'</div></div><div class="stat"><div class="mut">Online (G-Pay)</div><div class="v">₹'+onl+'</div></div>'+
- '<div class="stat"><div class="mut">Orders</div><div class="v">'+list.length+'</div></div><div class="stat"><div class="mut">Dishes sold</div><div class="v">'+dishes+'</div></div></div>';
- h+='<div class="card"><h3 style="margin-top:0">Item-wise sale</h3><table><tr><th>Item</th><th>Qty</th><th>₹</th></tr>'+
- (Object.keys(by).map(function(n){return '<tr><td>'+esc(n)+'</td><td>'+by[n].q+'</td><td>'+by[n].r+'</td></tr>'}).join('')||'<tr><td colspan="3" class="mut">No sales</td></tr>')+'</table></div>';
+ '<div class="stat"><div class="mut">Dishes sold (Ghoghra + Fries)</div><div class="v">'+dishes+'</div><div class="mut">₹'+dR+'</div></div><div class="stat"><div class="mut">Beverages sold</div><div class="v">'+drinks+'</div><div class="mut">₹'+bR+'</div></div></div>';
+ function grp(t,flag){var ks=Object.keys(by).filter(function(n){return by[n].d==flag}),q=0,r=0;var rows=ks.map(function(n){q+=by[n].q;r+=by[n].r;return '<tr><td>'+esc(n)+'</td><td>'+by[n].q+'</td><td>'+by[n].r+'</td></tr>'}).join('')||'<tr><td colspan="3" class="mut">No sales</td></tr>';return '<tr><th colspan="3" style="background:var(--pri2);color:var(--pri)">'+t+'</th></tr>'+rows+'<tr><td><b>Total '+t+'</b></td><td><b>'+q+'</b></td><td><b>'+r+'</b></td></tr>'}
+ h+='<div class="card"><h3 style="margin-top:0">Item-wise sale</h3><table><tr><th>Item</th><th>Qty</th><th>₹</th></tr>'+grp('Dishes',false)+grp('Beverages',true)+'</table></div>';
  var days={};
- sales.forEach(function(s){var d=days[s.date]=days[s.date]||{o:0,q:0,c:0,n:0};d.o++;s.items.forEach(function(x){d.q+=x.qty});if(s.mode=='Cash')d.c+=s.total;else d.n+=s.total});
+ sales.forEach(function(s){var d=days[s.date]=days[s.date]||{o:0,q:0,dr:0,c:0,n:0};d.o++;s.items.forEach(function(x){if(lineDrink(x))d.dr+=x.qty;else d.q+=x.qty});if(s.mode=='Cash')d.c+=s.total;else d.n+=s.total});
  var ks=Object.keys(days).sort().reverse();
- h+='<div class="card"><h3 style="margin-top:0">All days (tap to open)</h3><table><tr><th>Date</th><th>Dishes</th><th>Cash</th><th>Online</th><th>Total</th></tr>'+
- (ks.map(function(k){var d=days[k];return '<tr onclick="viewDate=\''+k+'\';render()" style="'+(k==viewDate?'font-weight:800':'')+'"><td>'+nice(k)+'</td><td>'+d.q+'</td><td>'+d.c+'</td><td>'+d.n+'</td><td>'+(d.c+d.n)+'</td></tr>'}).join('')||'<tr><td colspan="5" class="mut">Nothing yet</td></tr>')+'</table></div>';
+ h+='<div class="card"><h3 style="margin-top:0">All days (tap to open)</h3><table><tr><th>Date</th><th>Dishes</th><th>Drinks</th><th>Cash</th><th>Online</th><th>Total</th></tr>'+
+ (ks.map(function(k){var d=days[k];return '<tr onclick="viewDate=\''+k+'\';render()" style="'+(k==viewDate?'font-weight:800':'')+'"><td>'+nice(k)+'</td><td>'+d.q+'</td><td>'+d.dr+'</td><td>'+d.c+'</td><td>'+d.n+'</td><td>'+(d.c+d.n)+'</td></tr>'}).join('')||'<tr><td colspan="6" class="mut">Nothing yet</td></tr>')+'</table></div>';
  return '<div class="page">'+h+'</div>';
 }
 /* ITEMS */
 function itemsV(){
- var h='<div class="card"><b>Add new item</b><div class="row" style="margin-top:8px;flex-wrap:wrap"><input id="nn" placeholder="Item name" style="flex:2;min-width:120px"><input id="np" type="number" inputmode="numeric" placeholder="₹ Price" style="flex:1;min-width:70px"></div><input id="nc" placeholder="Category (e.g. Ghoghra, Drinks)" style="width:100%;margin-top:8px"><button class="btn" style="width:100%;margin-top:8px" onclick="addItem()">+ Add item</button></div>';
- items.forEach(function(i){h+='<div class="card"><div class="row"><div><b>'+esc(i.name)+'</b><div class="mut">'+esc(i.cat)+'</div></div><div class="row"><span>₹</span><input type="number" inputmode="numeric" value="'+i.price+'" style="width:72px" onchange="setPrice(\''+i.id+'\',this.value)"><button class="btn '+(armed==i.id?'d':'g')+'" onclick="delItem(\''+i.id+'\')">'+(armed==i.id?'Sure?':'✕')+'</button></div></div></div>'});
+ var h='<div class="card"><b>Add new item</b><div class="row" style="margin-top:8px;flex-wrap:wrap"><input id="nn" placeholder="Item name" style="flex:2;min-width:120px"><input id="np" type="number" inputmode="numeric" placeholder="₹ Price" style="flex:1;min-width:70px"></div><input id="nc" placeholder="Category (e.g. Ghoghra, Drinks)" style="width:100%;margin-top:8px"><select id="nt" style="width:100%;margin-top:8px"><option value="0">Type: Dish (counted in dishes)</option><option value="1">Type: Beverage (counted separately)</option></select><button class="btn" style="width:100%;margin-top:8px" onclick="addItem()">+ Add item</button></div>';
+ items.forEach(function(i){h+='<div class="card"><div class="row"><div><b>'+esc(i.name)+'</b><div class="mut">'+esc(i.cat)+'</div><button class="btn g" style="padding:3px 8px;font-size:12px;margin-top:4px" onclick="togType(\''+i.id+'\')">'+(isDrink(i)?'Beverage':'Dish')+' ⇄</button></div><div class="row"><span>₹</span><input type="number" inputmode="numeric" value="'+i.price+'" style="width:72px" onchange="setPrice(\''+i.id+'\',this.value)"><button class="btn '+(armed==i.id?'d':'g')+'" onclick="delItem(\''+i.id+'\')">'+(armed==i.id?'Sure?':'✕')+'</button></div></div></div>'});
  h+='<button class="btn g" style="width:100%" onclick="openInst()">Add app to Home Screen</button>';
  h+='<div class="mut" style="text-align:center;padding:8px">Data is saved in this phone\'s browser. Old sales keep their old prices when you change a price.</div>';
  return '<div class="page">'+h+'</div>';
@@ -178,8 +180,9 @@ function itemsV(){
 function addItem(){
  var n=document.getElementById('nn').value.trim(),p=parseFloat(document.getElementById('np').value),c=document.getElementById('nc').value.trim()||'Other';
  if(!n||isNaN(p)||p<0){toast('Enter name and price');return}
- items.push({id:'u'+Date.now(),name:n,price:p,cat:c});save(KI,items);toast('Item added');render();
+ items.push({id:'u'+Date.now(),name:n,price:p,cat:c,drink:document.getElementById('nt').value=='1'});save(KI,items);toast('Item added');render();
 }
+function togType(id){var it=items.find(function(x){return x.id==id});if(it){it.drink=!isDrink(it);save(KI,items);render()}}
 function setPrice(id,v){var p=parseFloat(v);var it=items.find(function(x){return x.id==id});if(it&&!isNaN(p)&&p>=0){it.price=p;save(KI,items);toast('Price updated')}}
 function delItem(id){if(armed==id){items=items.filter(function(x){return x.id!=id});delete cart[id];save(KI,items);armed=null}else armed=id;render()}
 
