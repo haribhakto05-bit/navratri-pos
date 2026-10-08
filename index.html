@@ -3,36 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Navratri Stall POS</title>
+<title>Garba Night Bites</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Navratri POS">
+<meta name="apple-mobile-web-app-title" content="Garba Night Bites">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#173d2e">
+<meta name="theme-color" content="#8a1033">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
-:root{--bg:#faf6ea;--card:#fffdf7;--ink:#1d2a23;--mute:#6e6b5a;--pri:#1f4d3a;--pri2:#eee7d1;--line:#ddd0ab;--ok:#2e6b4f;--blue:#1f3a5f;--gold:#b08d3c;color-scheme:light;
+:root{--bg:#fff6dc;--card:#fffdf5;--ink:#2b1630;--mute:#7a6471;--pri:#9b1239;--pri2:#fde7bd;--line:#efd08e;--ok:#2f8f3e;--blue:#3b2f9e;--gold:#e0a100;color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 button,input{font-family:inherit}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;display:flex;flex-direction:column;overflow:hidden}
-header{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 8px;background:#173d2e;color:#f3e7c3;border-bottom:3px solid var(--gold)}
-header h1{font-size:18px;margin:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-header small{color:#e4d29c;font-size:13px;font-weight:700;text-align:right;line-height:1.3}header small span{display:block;font-size:17px}
+body{background:var(--bg) radial-gradient(rgba(224,161,0,.14) 1.5px,transparent 1.5px) 0 0/18px 18px;color:var(--ink);font-family:Georgia,"Times New Roman",serif;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 8px;background:linear-gradient(180deg,#a3143b,#760d2b);color:#fff3cf;border-bottom:3px solid var(--gold)}
+header .sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#ffd666;margin-top:2px}
+.toran{height:26px;margin-top:-1px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='26'%3E%3Cpath d='M0 0h20l-10 22z' fill='%23e8590c'/%3E%3Cpath d='M20 0h20l-10 22z' fill='%23f2b600'/%3E%3Cpath d='M40 0h20l-10 22z' fill='%232f9e44'/%3E%3Cpath d='M60 0h20l-10 22z' fill='%23c2185b'/%3E%3Cpath d='M80 0h20l-10 22z' fill='%237b2cbf'/%3E%3C/svg%3E") repeat-x}
+.strip{height:5px;background:repeating-linear-gradient(90deg,#e8590c 0 20px,#f2b600 20px 40px,#2f9e44 40px 60px,#c2185b 60px 80px,#7b2cbf 80px 100px)}
+header h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+header small{color:#ffd666;font-size:13px;font-weight:700;text-align:right;line-height:1.3}header small span{display:block;font-size:17px}
 nav{display:flex;gap:4px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--bg)}
 nav button{flex:1;padding:9px 2px;border:0;border-radius:10px;background:var(--pri2);color:var(--ink);font-weight:600;font-size:13px}
-nav button.on{background:var(--pri);color:#f3e7c3}
+nav button.on{background:var(--pri);color:#ffe9a8}
 main{flex:1;min-height:0;overflow:hidden}
 .pos{display:flex;height:100%}
 .left{flex:.8;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:7px;border-right:1px solid var(--line)}
 .right{flex:1.35;display:flex;flex-direction:column;padding:10px;min-width:0;background:var(--card)}
 .item{position:relative;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;font-size:13px;font-weight:600}
 .item:active{background:var(--pri2)}
-.item span{display:block;color:var(--gold);font-weight:700;font-size:13px;margin-top:2px}
+.item span{display:block;color:#a8590a;font-weight:700;font-size:13px;margin-top:2px}
 .item b{position:absolute;top:6px;right:6px;background:var(--pri);color:#fff;border-radius:999px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px}
-.cat{font-size:11px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:4px 2px 0}
+.cat{font-size:12px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:6px;margin:6px 0 0}
 .cart{flex:1;overflow-y:auto}
 .line{border-bottom:1px dashed var(--line);padding:9px 0;font-size:15px}
 .line .n{font-weight:600}
@@ -59,8 +62,8 @@ input,select{font:inherit;padding:9px;border-radius:9px;border:1px solid var(--l
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
 .stat .v{font-size:20px;font-weight:800}
-.stat.big{grid-column:span 2;background:var(--pri);color:#fff;border:0}
-.stat.big .mut{color:#e4d29c}.stat.big{border-bottom:3px solid var(--gold)}
+.stat.big{grid-column:span 2;background:linear-gradient(135deg,#a3143b,#760d2b);color:#fff;border:0}
+.stat.big .mut{color:#ffd666}.stat.big{border-bottom:3px solid var(--gold)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:right}
 td:first-child,th:first-child{text-align:left}
@@ -77,25 +80,34 @@ h3{margin:12px 0 6px;font-size:14px}
 </style>
 </head>
 <body>
-<header><h1 id="sn">Navratri Stall</h1><small id="dt"></small></header>
-<nav id="nav"></nav>
+<header><div><h1 id="sn">Garba Night Bites</h1><div class="sub">✦ Navratri Special ✦</div></div><small id="dt"></small></header>
+<div class="toran"></div>
+<nav id="nav"></nav><div class="strip"></div>
 <main id="main"></main>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="sheet"><img class="ic" id="icn" alt=""><h2>Add to Home Screen</h2><div class="mut">Open the stall app like a normal app, in one tap.</div><div id="steps"></div><button class="btn" id="inb" style="display:none" onclick="doInstall()">Install app</button><button class="btn g" onclick="closeInst(true)">Not now</button></div></div>
 <script>
 /* ===== EASY SETTINGS: change these ===== */
 var CONFIG={
- stallName:'Navratri Stall',
- currency:'₹',
- // [name, price, category] - used only the FIRST time the app opens on a phone
- defaultItems:[['Simple Ghoghra',50,'Ghoghra'],['Cheese Ghoghra',70,'Ghoghra'],['Salted Fries',60,'French Fries'],['Peri Peri Fries',80,'French Fries'],['Korean Fries',90,'French Fries'],['Water Bottle',20,'Beverage']]
+ stallName:'Garba Night Bites',
+ // [name, price, category, type]  type: dish | bev | combo | donut
+ // used the FIRST time the app opens (or when you press "Reset menu" in Items tab)
+ defaultItems:[
+  ['Normal Ghughra',50,'Ghughra','dish'],['Cheese Ghughra',70,'Ghughra','dish'],
+  ['Salted Fries',60,'Fries','dish'],['Peri Peri Fries',80,'Fries','dish'],['Korean Fries',100,'Fries','dish'],
+  ['Dark Chocolate Donut',60,'Donuts','donut'],['White Chocolate Donut',60,'Donuts','donut'],
+  ['Oreo Shake',70,'Shakes','bev'],['Biscoff Shake',90,'Shakes','bev'],['Chocolate Shake',60,'Shakes','bev'],
+  ['Campa Cold Drink',20,'Drinks','bev'],['Water Bottle',20,'Drinks','bev'],
+  ['Cheese Ghughra + Campa',85,'Combo Deals','combo'],['Peri Peri Fries + Campa',90,'Combo Deals','combo'],['Oreo Shake + Donut',120,'Combo Deals','combo']
+ ]
 };
 /* ===== END SETTINGS ===== */
-var KI='navratri_items_v1',KS='navratri_sales_v1';
+var KI='navratri_items_v2',KS='navratri_sales_v1';
 function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var defaults=CONFIG.defaultItems;
-var items=load(KI,null)||defaults.map(function(d,i){return{id:'d'+i,name:d[0],price:d[1],cat:d[2]}});
+var items=load(KI,null)||defaults.map(function(d,i){return{id:'d'+i,name:d[0],price:d[1],cat:d[2],type:d[3]}});
+items.forEach(function(i){if(i.type=='dish'&&/donut/i.test(i.cat||''))i.type='donut'});save(KI,items);
 var sales=load(KS,[]);
 var cart={},tab='sale',viewDate=today(),armed=null;
 function pad(n){return n<10?'0'+n:''+n}
@@ -120,20 +132,24 @@ function render(){
 function saleV(){
  var cats=[],h='';
  items.forEach(function(i){if(cats.indexOf(i.cat)<0)cats.push(i.cat)});
- cats.forEach(function(c){h+='<div class="cat">'+esc(c)+'</div>';items.filter(function(i){return i.cat==c}).forEach(function(i){
-  h+='<button class="item" onclick="add(\''+i.id+'\')">'+esc(i.name)+'<span>₹'+i.price+'</span>'+(cart[i.id]?'<b>'+cart[i.id]+'</b>':'')+'</button>'})});
+ cats.forEach(function(c){h+='<div class="cat" style="background:'+catColor(c)+'">'+esc(c)+'</div>';items.filter(function(i){return i.cat==c}).forEach(function(i){
+  h+='<button class="item" style="border-left:5px solid '+catColor(c)+'" onclick="add(\''+i.id+'\')">'+esc(i.name)+'<span>₹'+i.price+'</span>'+(cart[i.id]?'<b>'+cart[i.id]+'</b>':'')+'</button>'})});
  var ids=Object.keys(cart),tot=0,l='';
  ids.forEach(function(id){var it=items.find(function(x){return x.id==id});if(!it)return;var a=it.price*cart[id];tot+=a;
   l+='<div class="line"><div class="n">'+esc(it.name)+'</div><div class="r"><div class="q"><button onclick="chg(\''+id+'\',-1)">−</button><b>'+cart[id]+'</b><button onclick="chg(\''+id+'\',1)">+</button></div><b>₹'+a+'</b></div></div>'});
- return '<div class="pos"><div class="left">'+h+'</div><div class="right"><div class="mut">Current order</div><div class="cart">'+(l||'<div class="empty">Tap items to add</div>')+'</div><div class="total"><span>Total</span><span>₹'+tot+'</span></div><div class="pay"><button class="cash" '+(tot?'':'disabled')+' onclick="pay(\'Cash\')">Cash</button><button class="gpay" '+(tot?'':'disabled')+' onclick="pay(\'G-Pay\')">G-Pay</button></div><button class="clr" onclick="cart={};render()">Clear order</button></div></div>';
+ return '<div class="pos"><div class="left">'+h+'</div><div class="right"><div class="mut">Current order</div><div class="cart">'+(l||'<div class="empty"><div style="font-size:34px">🪔</div>Tap items to add</div>')+'</div><div class="total"><span>Total</span><span>₹'+tot+'</span></div><div class="pay"><button class="cash" '+(tot?'':'disabled')+' onclick="pay(\'Cash\')">Cash</button><button class="gpay" '+(tot?'':'disabled')+' onclick="pay(\'G-Pay\')">G-Pay</button></div><button class="clr" onclick="cart={};render()">Clear order</button></div></div>';
 }
-function isDrink(it){return it.drink!==undefined?it.drink:/beverage|drink/i.test(it.cat||'')}
-function lineDrink(x){if(x.drink!==undefined)return x.drink;var it=items.find(function(i){return i.name==x.name});return it?isDrink(it):/beverage|drink|water|bottle/i.test(x.name)}
+var CATC={ghughra:'#a50e3b',ghoghra:'#a50e3b',fries:'#ef7b10',donut:'#7b2cbf',shake:'#2f8f3e',drink:'#c2185b',combo:'#d99a00'};
+function catColor(c){c=String(c||'');var k=Object.keys(CATC).find(function(k){return c.toLowerCase().indexOf(k)>=0});if(k)return CATC[k];var p=['#0b7285','#a61e4d','#5f3dc4','#2b8a3e'],h=0;for(var i=0;i<c.length;i++)h+=c.charCodeAt(i);return p[h%4]}
+var TYPES={dish:'Dish',bev:'Beverage',combo:'Combo',donut:'Donut'};
+function typeOf(it){if(it.type)return it.type;if(it.drink!==undefined)return it.drink?'bev':'dish';var c=it.cat||'';return /beverage|drink|shake/i.test(c)?'bev':/combo/i.test(c)?'combo':/donut/i.test(c)?'donut':'dish'}
+function lineType(x){if(x.type=='dish'&&/donut/i.test(x.cat||x.name))return 'donut';if(x.type)return x.type;if(x.drink!==undefined)return x.drink?'bev':'dish';var it=items.find(function(i){return i.name==x.name});return it?typeOf(it):(/water|bottle|campa|shake|drink/i.test(x.name)?'bev':'dish')}
+function lineCat(x,t){if(x.cat)return x.cat;var it=items.find(function(i){return i.name==x.name});return it?it.cat:TYPES[t]}
 function add(id){cart[id]=(cart[id]||0)+1;render()}
 function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];render()}
 function pay(mode){
  var lines=[],tot=0;
- Object.keys(cart).forEach(function(id){var it=items.find(function(x){return x.id==id});if(it){lines.push({name:it.name,price:it.price,qty:cart[id],drink:isDrink(it)});tot+=it.price*cart[id]}});
+ Object.keys(cart).forEach(function(id){var it=items.find(function(x){return x.id==id});if(it){lines.push({name:it.name,price:it.price,qty:cart[id],type:typeOf(it),cat:it.cat});tot+=it.price*cart[id]}});
  if(!lines.length)return;
  var now=new Date();
  sales.push({id:now.getTime(),ts:now.getTime(),date:dstr(now),items:lines,total:tot,mode:mode});
@@ -155,34 +171,44 @@ function histV(){
 function del(id){if(armed==id){sales=sales.filter(function(s){return s.id!=id});save(KS,sales);armed=null}else armed=id;render()}
 /* REPORT */
 function repV(){
- var list=sales.filter(function(s){return s.date==viewDate}),cash=0,onl=0,dishes=0,drinks=0,dR=0,bR=0,by={};
- list.forEach(function(s){if(s.mode=='Cash')cash+=s.total;else onl+=s.total;s.items.forEach(function(x){var d=lineDrink(x);if(d){drinks+=x.qty;bR+=x.qty*x.price}else{dishes+=x.qty;dR+=x.qty*x.price}by[x.name]=by[x.name]||{q:0,r:0,d:d};by[x.name].q+=x.qty;by[x.name].r+=x.qty*x.price})});
- var h=dateBar()+'<div class="stats"><div class="stat big"><div class="mut">Total revenue · '+nice(viewDate)+' · '+list.length+' orders</div><div class="v">₹'+(cash+onl)+'</div></div>'+
- '<div class="stat"><div class="mut">Cash</div><div class="v">₹'+cash+'</div></div><div class="stat"><div class="mut">Online (G-Pay)</div><div class="v">₹'+onl+'</div></div>'+
- '<div class="stat"><div class="mut">Dishes sold (Ghoghra + Fries)</div><div class="v">'+dishes+'</div><div class="mut">₹'+dR+'</div></div><div class="stat"><div class="mut">Beverages sold</div><div class="v">'+drinks+'</div><div class="mut">₹'+bR+'</div></div></div>';
- function grp(t,flag){var ks=Object.keys(by).filter(function(n){return by[n].d==flag}),q=0,r=0;var rows=ks.map(function(n){q+=by[n].q;r+=by[n].r;return '<tr><td>'+esc(n)+'</td><td>'+by[n].q+'</td><td>'+by[n].r+'</td></tr>'}).join('')||'<tr><td colspan="3" class="mut">No sales</td></tr>';return '<tr><th colspan="3" style="background:var(--pri2);color:var(--pri)">'+t+'</th></tr>'+rows+'<tr><td><b>Total '+t+'</b></td><td><b>'+q+'</b></td><td><b>'+r+'</b></td></tr>'}
- h+='<div class="card"><h3 style="margin-top:0">Item-wise sale</h3><table><tr><th>Item</th><th>Qty</th><th>₹</th></tr>'+grp('Dishes',false)+grp('Beverages',true)+'</table></div>';
+ var list=sales.filter(function(s){return s.date==viewDate}),cash=0,onl=0,cnt={dish:0,bev:0,combo:0,donut:0},rev={dish:0,bev:0,combo:0,donut:0},by={};
+ list.forEach(function(s){if(s.mode=='Cash')cash+=s.total;else onl+=s.total;s.items.forEach(function(x){var t=lineType(x);cnt[t]+=x.qty;rev[t]+=x.qty*x.price;var b=by[x.name]=by[x.name]||{q:0,r:0,c:lineCat(x,t)};b.q+=x.qty;b.r+=x.qty*x.price})});
+ var all=cash+onl;
+ function st(l,v,sub){return '<div class="stat"><div class="mut">'+l+'</div><div class="v">'+v+'</div>'+(sub?'<div class="mut">'+sub+'</div>':'')+'</div>'}
+ var h=dateBar()+'<div class="stats"><div class="stat big"><div class="mut">Total revenue · '+nice(viewDate)+' · '+list.length+' orders</div><div class="v">₹'+all+'</div></div>'+
+ st('Cash','₹'+cash)+st('Online (G-Pay)','₹'+onl)+st('Dishes sold',cnt.dish,'₹'+rev.dish)+st('Beverages sold',cnt.bev,'₹'+rev.bev)+st('Combos sold',cnt.combo,'₹'+rev.combo)+st('Donuts sold',cnt.donut,'₹'+rev.donut)+'<div class="stat" style="grid-column:span 2"><div class="mut">Avg per order</div><div class="v">₹'+(list.length?Math.round(all/list.length):0)+'</div></div></div>';
+ var order=[];items.forEach(function(i){if(order.indexOf(i.cat)<0)order.push(i.cat)});
+ Object.keys(by).forEach(function(n){if(order.indexOf(by[n].c)<0)order.push(by[n].c)});
+ var tb='';
+ order.forEach(function(c){var ns=Object.keys(by).filter(function(n){return by[n].c==c});if(!ns.length)return;var q=0,rr=0;
+  tb+='<tr><th colspan="3" style="background:'+catColor(c)+';color:#fff">'+esc(c)+'</th></tr>';
+  ns.forEach(function(n){q+=by[n].q;rr+=by[n].r;tb+='<tr><td>'+esc(n)+'</td><td>'+by[n].q+'</td><td>'+by[n].r+'</td></tr>'});
+  tb+='<tr><td><b>Total '+esc(c)+'</b></td><td><b>'+q+'</b></td><td><b>'+rr+'</b></td></tr>'});
+ if(!tb)tb='<tr><td colspan="3" class="mut">No sales</td></tr>';
+ h+='<div class="card"><h3 style="margin-top:0">Item-wise sale</h3><table><tr><th>Item</th><th>Qty</th><th>₹</th></tr>'+tb+'</table></div>';
  var days={};
- sales.forEach(function(s){var d=days[s.date]=days[s.date]||{o:0,q:0,dr:0,c:0,n:0};d.o++;s.items.forEach(function(x){if(lineDrink(x))d.dr+=x.qty;else d.q+=x.qty});if(s.mode=='Cash')d.c+=s.total;else d.n+=s.total});
+ sales.forEach(function(s){var d=days[s.date]=days[s.date]||{dish:0,bev:0,combo:0,donut:0,c:0,n:0};s.items.forEach(function(x){d[lineType(x)]+=x.qty});if(s.mode=='Cash')d.c+=s.total;else d.n+=s.total});
  var ks=Object.keys(days).sort().reverse();
- h+='<div class="card"><h3 style="margin-top:0">All days (tap to open)</h3><table><tr><th>Date</th><th>Dishes</th><th>Drinks</th><th>Cash</th><th>Online</th><th>Total</th></tr>'+
- (ks.map(function(k){var d=days[k];return '<tr onclick="viewDate=\''+k+'\';render()" style="'+(k==viewDate?'font-weight:800':'')+'"><td>'+nice(k)+'</td><td>'+d.q+'</td><td>'+d.dr+'</td><td>'+d.c+'</td><td>'+d.n+'</td><td>'+(d.c+d.n)+'</td></tr>'}).join('')||'<tr><td colspan="6" class="mut">Nothing yet</td></tr>')+'</table></div>';
+ h+='<div class="card"><h3 style="margin-top:0">All days (tap to open)</h3><div style="overflow-x:auto"><table style="white-space:nowrap"><tr><th>Date</th><th>Dish</th><th>Drink</th><th>Combo</th><th>Donut</th><th>Cash</th><th>Online</th><th>Total</th></tr>'+
+ (ks.map(function(k){var d=days[k];return '<tr onclick="viewDate=\''+k+'\';render()" style="'+(k==viewDate?'font-weight:800':'')+'"><td>'+nice(k)+'</td><td>'+d.dish+'</td><td>'+d.bev+'</td><td>'+d.combo+'</td><td>'+d.donut+'</td><td>'+d.c+'</td><td>'+d.n+'</td><td>'+(d.c+d.n)+'</td></tr>'}).join('')||'<tr><td colspan="8" class="mut">Nothing yet</td></tr>')+'</table></div></div>';
  return '<div class="page">'+h+'</div>';
 }
 /* ITEMS */
 function itemsV(){
- var h='<div class="card"><b>Add new item</b><div class="row" style="margin-top:8px;flex-wrap:wrap"><input id="nn" placeholder="Item name" style="flex:2;min-width:120px"><input id="np" type="number" inputmode="numeric" placeholder="₹ Price" style="flex:1;min-width:70px"></div><input id="nc" placeholder="Category (e.g. Ghoghra, Drinks)" style="width:100%;margin-top:8px"><select id="nt" style="width:100%;margin-top:8px"><option value="0">Type: Dish (counted in dishes)</option><option value="1">Type: Beverage (counted separately)</option></select><button class="btn" style="width:100%;margin-top:8px" onclick="addItem()">+ Add item</button></div>';
- items.forEach(function(i){h+='<div class="card"><div class="row"><div><b>'+esc(i.name)+'</b><div class="mut">'+esc(i.cat)+'</div><button class="btn g" style="padding:3px 8px;font-size:12px;margin-top:4px" onclick="togType(\''+i.id+'\')">'+(isDrink(i)?'Beverage':'Dish')+' ⇄</button></div><div class="row"><span>₹</span><input type="number" inputmode="numeric" value="'+i.price+'" style="width:72px" onchange="setPrice(\''+i.id+'\',this.value)"><button class="btn '+(armed==i.id?'d':'g')+'" onclick="delItem(\''+i.id+'\')">'+(armed==i.id?'Sure?':'✕')+'</button></div></div></div>'});
+ var h='<div class="card"><b>Add new item</b><div class="row" style="margin-top:8px;flex-wrap:wrap"><input id="nn" placeholder="Item name" style="flex:2;min-width:120px"><input id="np" type="number" inputmode="numeric" placeholder="₹ Price" style="flex:1;min-width:70px"></div><input id="nc" placeholder="Category (e.g. Shakes, Combo Deals)" style="width:100%;margin-top:8px"><select id="nt" style="width:100%;margin-top:8px"><option value="dish">Type: Dish</option><option value="bev">Type: Beverage</option><option value="combo">Type: Combo</option><option value="donut">Type: Donut</option></select><button class="btn" style="width:100%;margin-top:8px" onclick="addItem()">+ Add item</button></div>';
+ items.forEach(function(i){h+='<div class="card"><div class="row"><div><b>'+esc(i.name)+'</b><div class="mut">'+esc(i.cat)+'</div><button class="btn g" style="padding:3px 8px;font-size:12px;margin-top:4px" onclick="togType(\''+i.id+'\')">'+TYPES[typeOf(i)]+' ⇄</button></div><div class="row"><span>₹</span><input type="number" inputmode="numeric" value="'+i.price+'" style="width:72px" onchange="setPrice(\''+i.id+'\',this.value)"><button class="btn '+(armed==i.id?'d':'g')+'" onclick="delItem(\''+i.id+'\')">'+(armed==i.id?'Sure?':'✕')+'</button></div></div></div>'});
  h+='<button class="btn g" style="width:100%" onclick="openInst()">Add app to Home Screen</button>';
- h+='<div class="mut" style="text-align:center;padding:8px">Data is saved in this phone\'s browser. Old sales keep their old prices when you change a price.</div>';
+ h+='<button class="btn '+(armed=='reset'?'d':'g')+'" style="width:100%;margin-top:8px" onclick="resetMenu()">'+(armed=='reset'?'Tap again to reset (sales are kept)':'Reset to Garba Night Bites menu')+'</button>';
+ h+='<div class="mut" style="text-align:center;padding:8px">Data is saved in this phone\'s browser. Old sales keep their old prices when you change a price. Type = how the item is counted in the report (Dish, Beverage, Combo or Donut).</div>';
  return '<div class="page">'+h+'</div>';
 }
 function addItem(){
  var n=document.getElementById('nn').value.trim(),p=parseFloat(document.getElementById('np').value),c=document.getElementById('nc').value.trim()||'Other';
  if(!n||isNaN(p)||p<0){toast('Enter name and price');return}
- items.push({id:'u'+Date.now(),name:n,price:p,cat:c,drink:document.getElementById('nt').value=='1'});save(KI,items);toast('Item added');render();
+ items.push({id:'u'+Date.now(),name:n,price:p,cat:c,type:document.getElementById('nt').value});save(KI,items);toast('Item added');render();
 }
-function togType(id){var it=items.find(function(x){return x.id==id});if(it){it.drink=!isDrink(it);save(KI,items);render()}}
+function togType(id){var it=items.find(function(x){return x.id==id});if(it){var o=['dish','bev','combo','donut'];it.type=o[(o.indexOf(typeOf(it))+1)%4];save(KI,items);render()}}
+function resetMenu(){if(armed=='reset'){items=CONFIG.defaultItems.map(function(d,i){return{id:'d'+i,name:d[0],price:d[1],cat:d[2],type:d[3]}});cart={};save(KI,items);armed=null;toast('Menu reset')}else armed='reset';render()}
 function setPrice(id,v){var p=parseFloat(v);var it=items.find(function(x){return x.id==id});if(it&&!isNaN(p)&&p>=0){it.price=p;save(KI,items);toast('Price updated')}}
 function delItem(id){if(armed==id){items=items.filter(function(x){return x.id!=id});delete cart[id];save(KI,items);armed=null}else armed=id;render()}
 
